@@ -1,5 +1,5 @@
 from django.shortcuts import render
-
+from .models import Registraion
 # Create your views here.
 
 def Home(request):
@@ -8,3 +8,7 @@ def Home(request):
         'Text' : 'Hello django!'
     }
     return render(request, template, context)
+
+def UserRegistration(request):
+    template = 'auth.html'
+    return render(request, template)
