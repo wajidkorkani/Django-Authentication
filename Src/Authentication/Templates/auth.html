@@ -5,11 +5,10 @@
 {% endblock %}
 
 {% block body %}
+
 <form method="POST">
     {% csrf_token %}
-    <input type="text" placeholder="User Name" name="username">
-    <input type="email" placeholder="Email" name="email">
-    <input type="password" placeholder="Password" name="password">
+    {{ form.as_p }}
     <button type="submit">Submit</button>
 </form>
 {% endblock %}
