@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from .models import Registraion
+from .forms import RegistrationForm
 from django.contrib.auth import get_user_model
 # Create your views here.
 
@@ -12,16 +12,14 @@ def Home(request):
 
 def UserRegistration(request):
     if request.method == 'POST':
-        username = request.POST.get('username')
-        email = request.POST.get('email')
-        password = request.POST.get('password')
-        User = get_user_model()
-        user = User.objects.create_user(
-            username=username,
-            email=email,
-            password=password
-        )
-        user.save()
-        return redirect(Home)
+        form = RegistrationForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('/')
+        else:
+            form = RegistrationForm(request.POST)
     template = 'auth.html'
-    return render(request, template)
+    context = {
+        "form":form
+    }
+    return render(request, template, context)
