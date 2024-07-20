@@ -6,4 +6,5 @@ urlpatterns = [
     path('', Home, name='home'),
     path('authentication', UserRegistration, name='ur'),
     path('login', LoginUser, name='login'),
+    path('logout', LogoutUser, name='logout')
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

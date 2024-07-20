@@ -15,7 +15,7 @@ def UserRegistration(request):
         form = RegistrationForm(request.POST)
         if form.is_valid():
             form.save()
-            return redirect('/')
+            return redirect(LoginUser)
         else:
             form = RegistrationForm(request.POST)
     template = 'auth.html'
@@ -41,3 +41,7 @@ def LoginUser(request):
     
     template = 'login.html'
     return render(request, template)
+
+def LogoutUser(request):
+    logout(request)
+    return redirect(LoginUser)
