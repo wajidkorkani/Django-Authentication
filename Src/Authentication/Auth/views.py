@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from .forms import RegistrationForm
-from django.contrib.auth import get_user_model
+from django.contrib.auth import login, logout, authenticate
 # Create your views here.
 
 def Home(request):
@@ -20,6 +20,24 @@ def UserRegistration(request):
             form = RegistrationForm(request.POST)
     template = 'auth.html'
     context = {
-        "form":form
+        "form":RegistrationForm(request.POST)
     }
     return render(request, template, context)
+
+def LoginUser(request):
+    if request.method == "POST":
+        username = request.POST['username']
+        password = request.POST['password']
+        user = authenticate(request, username=username, password=password)
+        if user is not None:
+            login(request, user)
+            return redirect(Home)
+        else:
+            template = 'login.html'
+            context = {
+                'error' : 'Invalid useranme or password!'
+            }
+            return render(request, template, context)
+    
+    template = 'login.html'
+    return render(request, template)
